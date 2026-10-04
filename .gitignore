@@ -1,0 +1,17 @@
+# Buildartefakte
+bin/
+obj/
+TestResults/
+*.trx
+*.user
+
+# Toolchain und Zwischenspeicher (§67: nie im Projekt ablegen)
+.cache/
+.dotnet/
+.nuget/
+
+# Release-Ausgaben
+publish/
+artifacts/
+*.exe
+*.msi

@@ -1,0 +1,28 @@
+<Project>
+
+  <!-- Zero-Warning-Gate (Master-Prompt §61): Warnungen sind Fehler.
+       Eine bewusst akzeptierte Warnung wird lokal unterdrueckt UND in
+       docs/ACCEPTED_WARNINGS.md begruendet - niemals projektweit abgeschaltet. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>9999</WarningLevel>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <DebugType>portable</DebugType>
+    <Deterministic>true</Deterministic>
+    <NeutralLanguage>de</NeutralLanguage>
+    <Product>Android Maintenance &amp; Transfer Suite (IN ENTWICKLUNG)</Product>
+    <Company>Android Maintenance &amp; Transfer Suite Project</Company>
+    <Version>0.1.0-alpha.1</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+  </PropertyGroup>
+
+</Project>

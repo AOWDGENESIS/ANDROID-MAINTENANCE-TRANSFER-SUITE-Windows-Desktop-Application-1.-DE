@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AndroidSuite.Localization</RootNamespace>
+    <AssemblyName>AndroidSuite.Localization</AssemblyName>
+    <Description>Zentrales Lokalisierungssystem (DE/EN) mit Live-Sprachwechsel.</Description>
+  </PropertyGroup>
+
+  <!-- Sprachkataloge werden eingebettet, damit die Anwendung ohne Begleitdateien
+       lauffaehig bleibt (Offline-First, portabler Betrieb). -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AndroidSuite.Core\AndroidSuite.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AndroidSuite.Localization.Tests" />
+  </ItemGroup>
+
+</Project>

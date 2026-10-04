@@ -1,0 +1,74 @@
+name: Build und Tests
+
+# Belegt oeffentlich und nachpruefbar, dass der veroeffentlichte Stand baut und besteht.
+# Das Zero-Warning-Gate ist in Directory.Build.props scharf geschaltet:
+# eine einzige Warnung laesst den Build fehlschlagen.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Quellcode holen
+        uses: actions/checkout@v4
+
+      - name: .NET 8 einrichten
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Abhaengigkeiten wiederherstellen
+        run: dotnet restore
+
+      - name: Build (Release, Zero-Warning-Gate)
+        run: dotnet build -c Release --no-restore
+
+      - name: Unit- und Integrationstests
+        run: dotnet test -c Release --no-build --verbosity normal
+
+      - name: Laufzeittest in isolierter Umgebung
+        run: dotnet tools/AndroidSuite.SmokeRunner/bin/Release/net8.0/AndroidSuite.SmokeRunner.dll
+
+  windows-artifact:
+    name: Windows-x64-Artefakt
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Quellcode holen
+        uses: actions/checkout@v4
+
+      - name: .NET 8 einrichten
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Windows-Artefakt erzeugen
+        run: |
+          dotnet publish tools/AndroidSuite.SmokeRunner -c Release -r win-x64 \
+            --self-contained true -p:PublishSingleFile=true -o ./publish
+          sha256sum ./publish/*.exe
+
+      # Hinweis: Dies ist das Pruefwerkzeug, NICHT die Anwendung.
+      # Die Anwendung existiert noch nicht (Phase 0 von 18).
+      - name: Artefakt bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: pruefwerkzeug-win-x64-KEINE-ANWENDUNG
+          path: ./publish/*.exe
+          retention-days: 7

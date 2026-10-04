@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AndroidSuite.SmokeRunner</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+    <Description>Laufzeitpruefung der Lokalisierung (Gate §60: RUNTIME TEST). Kein Produktbestandteil.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AndroidSuite.Core\AndroidSuite.Core.csproj" />
+    <ProjectReference Include="..\..\src\AndroidSuite.Localization\AndroidSuite.Localization.csproj" />
+  </ItemGroup>
+
+</Project>
